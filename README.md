@@ -1,1 +1,3 @@
-# senai_spmedgroup_sprint1_bd_tarde_IsraelOliveira
+Projeto SP MedGroup Sprint 1 - Banco de Dados
+Com MeR(Modelo e Relacionamento)
+Scripts(DDL,DML,DQL)
