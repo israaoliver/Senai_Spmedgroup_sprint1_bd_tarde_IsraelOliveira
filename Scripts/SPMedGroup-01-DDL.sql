@@ -27,27 +27,27 @@ CREATE TABLE Especialidades(
 
 CREATE TABLE Status(
     IdStatus INT PRIMARY KEY IDENTITY,
-    Titulo VARCHAR(255) NOT NULL
+    Titulo VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE Clinicas(
     IdClinica INT PRIMARY KEY IDENTITY,
     IdEnderecoClin INT FOREIGN KEY REFERENCES EnderecosClinicas (IdEnderecoClin),
     RazaoSocial VARCHAR(255) NOT NULL,
-    CNPJ CHAR(14) NOT NULL,
+    CNPJ CHAR(14) NOT NULL UNIQUE,
     HrAbertura TIME NOT NULL,
     HrFechamento TIME NOT NULL
 );
 
 CREATE TABLE NiveisAcesso(
     IdNivelAcesso INT PRIMARY KEY IDENTITY,
-    Titulo VARCHAR(255) NOT NULL
+    Titulo VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE Usuarios(
     IdUsuario INT PRIMARY KEY IDENTITY,
     IdNivelAcesso INT FOREIGN KEY REFERENCES NiveisAcesso (IdNivelAcesso),
-    Email VARCHAR (255) NOT NULL,
+    Email VARCHAR (255) NOT NULL UNIQUE,
     Senha VARCHAR(255) NOT NULL
 );
 
@@ -57,9 +57,9 @@ CREATE TABLE Medicos(
     IdClinica INT FOREIGN KEY REFERENCES Clinicas (IdClinica),
     IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario),
     Nome VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL UNIQUE,
     Senha VARCHAR(255) NOT NULL,
-    Crm VARCHAR(255) NOT NULL
+    Crm VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE Pacientes(
@@ -67,19 +67,19 @@ CREATE TABLE Pacientes(
     IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario),
     IdEnderecoPaci INT FOREIGN KEY REFERENCES EnderecosPacientes (IdEnderecoPaci),
     Nome VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL UNIQUE,
     Senha VARCHAR(255) NOT NULL,
     DataNacimento DATE NOT NULL,
     Telefone VARCHAR(255) NOT NULL,
-    RG CHAR(9),
-    CPF CHAR(11)
+    RG CHAR(9) UNIQUE,
+    CPF CHAR(11) UNIQUE
 );
 
 CREATE TABLE Administrador(
     IdAdm INT PRIMARY KEY IDENTITY,
     IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario),
     Nome VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL,
+    Email VARCHAR(255) NOT NULL UNIQUE,
     Senha VARCHAR(255) NOT NULL,
 );
 
