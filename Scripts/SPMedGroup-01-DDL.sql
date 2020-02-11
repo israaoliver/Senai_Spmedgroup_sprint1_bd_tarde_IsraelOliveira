@@ -1,20 +1,12 @@
-CREATE DATABASE SP_MedGroup
+CREATE DATABASE SP_MedGroup_Tarde
 GO
-Use SP_MedGroup
+Use SP_MedGroup_Tarde
 GO
-CREATE TABLE EnderecosClinicas(
-    IdEnderecoClin INT PRIMARY KEY IDENTITY,
+CREATE TABLE Enderecos(
+    IdEndereco INT PRIMARY KEY IDENTITY,
     Estado VARCHAR(255) NOT NULL,
     Cidade VARCHAR(255) NOT NULL,
-    Rua VARCHAR(255) NOT NULL,
-    Numero VARCHAR(255) NOT NULL
-);
-
-CREATE TABLE EnderecosPacientes(
-    IdEnderecoPaci INT PRIMARY KEY IDENTITY,
-    Estado VARCHAR(255) NOT NULL,
-    Cidade VARCHAR(255) NOT NULL,
-    Bairro VARCHAR(255) NOT NULL
+    Bairro VARCHAR(255) NOT NULL,
     Rua VARCHAR(255) NOT NULL,
     Numero VARCHAR(255) NOT NULL,
     CEP CHAR(8) NOT NULL
@@ -32,7 +24,7 @@ CREATE TABLE Status(
 
 CREATE TABLE Clinicas(
     IdClinica INT PRIMARY KEY IDENTITY,
-    IdEnderecoClin INT FOREIGN KEY REFERENCES EnderecosClinicas (IdEnderecoClin),
+    IdEndereco INT FOREIGN KEY REFERENCES Enderecos (IdEndereco),
     RazaoSocial VARCHAR(255) NOT NULL,
     CNPJ CHAR(14) NOT NULL UNIQUE,
     HrAbertura TIME NOT NULL,
@@ -44,18 +36,12 @@ CREATE TABLE NiveisAcesso(
     Titulo VARCHAR(255) NOT NULL UNIQUE
 );
 
-CREATE TABLE Usuarios(
-    IdUsuario INT PRIMARY KEY IDENTITY,
-    IdNivelAcesso INT FOREIGN KEY REFERENCES NiveisAcesso (IdNivelAcesso),
-    Email VARCHAR (255) NOT NULL UNIQUE,
-    Senha VARCHAR(255) NOT NULL
-);
 
 CREATE TABLE Medicos(
     IdMedico INT PRIMARY KEY IDENTITY,
     IdEspecialidade INT FOREIGN KEY REFERENCES Especialidades (IdEspecialidade),
     IdClinica INT FOREIGN KEY REFERENCES Clinicas (IdClinica),
-    IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario),
+    IdNivelAcesso INT FOREIGN KEY REFERENCES NiveisAcesso (IdNivelAcesso),
     Nome VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL UNIQUE,
     Senha VARCHAR(255) NOT NULL,
@@ -64,8 +50,8 @@ CREATE TABLE Medicos(
 
 CREATE TABLE Pacientes(
     IdPaciente INT PRIMARY KEY IDENTITY,
-    IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario),
-    IdEnderecoPaci INT FOREIGN KEY REFERENCES EnderecosPacientes (IdEnderecoPaci),
+    IdNivelAcesso INT FOREIGN KEY REFERENCES NiveisAcesso (IdNivelAcesso),
+    IdEndereco INT FOREIGN KEY REFERENCES Enderecos (IdEndereco),
     Nome VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL UNIQUE,
     Senha VARCHAR(255) NOT NULL,
@@ -77,7 +63,7 @@ CREATE TABLE Pacientes(
 
 CREATE TABLE Administrador(
     IdAdm INT PRIMARY KEY IDENTITY,
-    IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario),
+    IdNivelAcesso INT FOREIGN KEY REFERENCES NiveisAcesso (IdNivelAcesso),
     Nome VARCHAR(255) NOT NULL,
     Email VARCHAR(255) NOT NULL UNIQUE,
     Senha VARCHAR(255) NOT NULL,
