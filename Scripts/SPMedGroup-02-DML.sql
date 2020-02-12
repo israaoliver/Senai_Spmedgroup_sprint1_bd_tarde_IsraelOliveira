@@ -43,7 +43,8 @@ VALUES ('Acupuntura'),
 INSERT INTO Medicos(IdEspecialidade,IdClinica,IdNivelAcesso,Nome,Email,Senha,Crm)
 VALUES (2,2,2,'Ricardo Lemos','ricardo.lemos@spmedicalgroup.com.br','qwe','54356'),
 	(17,2,2,'Roberto Possarle','roberto.possarle@spmedicalgroup.com.br','eqwd','53452'),
-	(16,2,2,'Helena Strada','helena.souza@spmedicalgroup.com.br','swq','65463');
+	(16,2,2,'Helena Strada','helena.souza@spmedicalgroup.com.br','swq','65463'),
+	(16,2,2,'Edison Fereira','Edizonnn.souza@spmedicalgroup.com.br','swq','12233');
 
 INSERT INTO  Pacientes(IdNivelAcesso,IdEndereco,Nome,Email,Senha,DataNacimento,Telefone,RG,CPF)
 VALUES (3,3,'Ligia','ligia@gmail.com','adaw','13/10/1983','11 3456-7654','435225435','94839859000'),
