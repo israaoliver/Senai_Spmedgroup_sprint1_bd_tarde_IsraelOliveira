@@ -40,7 +40,7 @@ SELECT FLOOR(DATEDIFF(DAY, Pacientes.DataNacimento, GETDATE()) / 365.25) AS IDAD
 CREATE PROCEDURE Especialidade_id
 @ESPECIALIDADE INT
 AS
-SELECT Especialidades.Titulo, Medicos.Nome,Medicos.Email, Medicos.Crm FROM Medicos
+SELECT Especialidades.Titulo, Medicos.Nome, Medicos.Crm FROM Medicos
 INNER JOIN Especialidades ON Especialidades.IdEspecialidade = Medicos.IdEspecialidade
 WHERE Medicos.IdEspecialidade = @ESPECIALIDADE
 
@@ -52,5 +52,6 @@ AS
 SELECT Pacientes.Nome , CONVERT(VARCHAR(10), Pacientes.DataNacimento , 103) as DataNaciemnto,FLOOR(DATEDIFF(DAY, Pacientes.DataNacimento, GETDATE()) / 365.25) AS IDADE FROM Pacientes
 WHERE IdPaciente = @Id_Paciente
 
-EXECUTE IdadePaciente 5
+EXECUTE IdadePaciente 1
+
 

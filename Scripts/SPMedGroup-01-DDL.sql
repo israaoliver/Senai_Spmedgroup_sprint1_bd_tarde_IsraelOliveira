@@ -14,7 +14,7 @@ CREATE TABLE Enderecos(
 
 CREATE TABLE Especialidades(
     IdEspecialidade INT PRIMARY KEY IDENTITY,
-    Titulo VARCHAR(255) NOT NULL
+    Titulo VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE Status(
@@ -36,37 +36,38 @@ CREATE TABLE NiveisAcesso(
     Titulo VARCHAR(255) NOT NULL UNIQUE
 );
 
+CREATE TABLE Usuarios(
+	IdUsuario INT PRIMARY KEY IDENTITY,
+	IdNivelAcesso INT FOREIGN KEY REFERENCES NiveisAcesso (IdNivelAcesso),
+	Email VARCHAR(255) NOT NULL UNIQUE,
+	Senha VARCHAR(255) NOT NULL	
+);
+
 
 CREATE TABLE Medicos(
     IdMedico INT PRIMARY KEY IDENTITY,
     IdEspecialidade INT FOREIGN KEY REFERENCES Especialidades (IdEspecialidade),
     IdClinica INT FOREIGN KEY REFERENCES Clinicas (IdClinica),
-    IdNivelAcesso INT FOREIGN KEY REFERENCES NiveisAcesso (IdNivelAcesso),
+    IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario),
     Nome VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL UNIQUE,
-    Senha VARCHAR(255) NOT NULL,
     Crm VARCHAR(255) NOT NULL UNIQUE
 );
 
 CREATE TABLE Pacientes(
     IdPaciente INT PRIMARY KEY IDENTITY,
-    IdNivelAcesso INT FOREIGN KEY REFERENCES NiveisAcesso (IdNivelAcesso),
+    IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario),
     IdEndereco INT FOREIGN KEY REFERENCES Enderecos (IdEndereco),
     Nome VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL UNIQUE,
-    Senha VARCHAR(255) NOT NULL,
     DataNacimento DATE NOT NULL,
     Telefone VARCHAR(255) NOT NULL,
-    RG CHAR(9) UNIQUE,
-    CPF CHAR(11) UNIQUE
+    RG CHAR(9) NOT NULL UNIQUE,
+    CPF CHAR(11) NOT NULL UNIQUE
 );
 
 CREATE TABLE Administrador(
     IdAdm INT PRIMARY KEY IDENTITY,
-    IdNivelAcesso INT FOREIGN KEY REFERENCES NiveisAcesso (IdNivelAcesso),
+    IdUsuario INT FOREIGN KEY REFERENCES Usuarios (IdUsuario),
     Nome VARCHAR(255) NOT NULL,
-    Email VARCHAR(255) NOT NULL UNIQUE,
-    Senha VARCHAR(255) NOT NULL,
 );
 
 CREATE TABLE Consultas(
@@ -75,7 +76,7 @@ CREATE TABLE Consultas(
     IdMedico INT FOREIGN KEY REFERENCES Medicos (IdMedico),
     IdPaciente INT FOREIGN KEY REFERENCES Pacientes (IdPaciente),
     DataConsulta DATE NOT NULL,
-    HoraConsulta TIME,
+    HoraConsulta TIME NOT NULL,
     Descricao VARCHAR(255)
 );
 
